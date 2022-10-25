@@ -1,7 +1,10 @@
 <template>
-  <div>
-    <h1>Hello MyEbag</h1>
-    <router-link to="/about">To About</router-link>
+  <div class="pt-main bg-yellow home">
+        <v-container class="px-md-0">
+            <div  class="bg-red elevation-0-5 rounded-lg pa-5">
+              Welcome Home
+            </div>
+        </v-container>
   </div>
 </template>
 
@@ -13,3 +16,9 @@ export default {
 
 };
 </script>
+
+<style scoped>
+.home {
+  min-height: 100vh;
+}
+</style>

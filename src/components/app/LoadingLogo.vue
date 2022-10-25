@@ -1,6 +1,6 @@
 <template>
     <div class="loading-container bg-white">
-        <div class="purple-square bg-primary-purple">
+        <div class="purple-square bg-pink-accent-3">
             <div class="loader-container">
                 <div class="loader">
                     

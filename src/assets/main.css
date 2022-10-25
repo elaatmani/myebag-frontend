@@ -1,0 +1,23 @@
+
+body * {
+    font-family: 'Poppins', 'Roboto', sans-serif;
+}
+
+@media screen and (min-width: 1200px) {
+    .v-container {
+        max-width: 1200px !important;
+    }
+    
+}
+
+.no-hover .v-btn__overlay {
+    opacity: 0 !important;
+}
+
+.elevation-0-5 {
+    filter: drop-shadow(0 0 10px rgba(0,0,0,.05));
+}
+
+.pt-main {
+    padding-top: 80px !important;
+}
