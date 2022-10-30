@@ -1,28 +1,16 @@
 import { createStore } from 'vuex'
+import user from './user'
 
 export default createStore({
   state: {
-    isLogged: true,
-    user: null
+    host: 'http://localhost:8000'
   },
   getters: {
-    isLogged: state => {
-      return state.isLogged
-    },
-    user: state => {
-      return state.user
-    }
+    host: state => state.host
   },
-  mutations: {
-    updateLogin: state => {
-      state.isLogged = !state.isLogged
-    }
-  },
-  actions: {
-    changeLoginStatut: context => {
-      context.commit('updateLogin')
-    }
-  },
+  mutations: {},
+  actions: {},
   modules: {
+    user
   }
 })

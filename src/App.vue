@@ -4,7 +4,7 @@
     <v-main>
       <router-view/>
     </v-main>
-    <FooterVue />
+    <FooterVue v-if="false" />
   </v-app>
 </template>
 
@@ -19,6 +19,14 @@ export default {
   data: () => ({
     //
   }),
+  methods: {
+    checkUserStatus() {
+      if (localStorage.getItem('user') == null) {
+        this.$store.dispatch('updateLogin', false)
+        this.$store.dispatch('updateUser', null)
+      }
+    }
+  }
 }
 </script>
 

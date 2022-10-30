@@ -17,9 +17,19 @@
                                 <p class="text-h6 text-grey-darken-3 mb-1">Get Started</p>
                                 <p class="text-caption text-grey-darken-2  mb-2">Use your email to create an account.</p>
                                 <div>
-                                    <v-text-field :hide-details="true" color="primary-purple" class="mt-5" counter="25" variant="underlined" density="compact"  label="Username">
+                                    <v-text-field :hide-details="true" color="primary-purple" class="mt-5" counter="25" variant="underlined" density="compact"  label="First Name">
                                         <template v-slot:label>
-                                            <span class="text-caption mt-1">Username</span>
+                                            <span class="text-caption mt-1">First Name</span>
+                                        </template>
+                                        <template v-slot:prepend-inner>
+                                            <v-icon class="mt-1" color="grey-darken-4" size="small">mdi-account-outline</v-icon>
+                                        </template>
+                                    </v-text-field>
+                                </div>
+                                <div>
+                                    <v-text-field :hide-details="true" color="primary-purple" class="mt-5" counter="25" variant="underlined" density="compact"  label="Last Name">
+                                        <template v-slot:label>
+                                            <span class="text-caption mt-1">Last Name</span>
                                         </template>
                                         <template v-slot:prepend-inner>
                                             <v-icon class="mt-1" color="grey-darken-4" size="small">mdi-account-outline</v-icon>

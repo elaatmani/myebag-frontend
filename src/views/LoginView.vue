@@ -16,29 +16,30 @@
                             <div class="form bg-white  rounded-lg px-5 py-5  px-md-8 d-flex flex-column">
                                 <p class="text-h6 text-grey-darken-3 mb-1">Login</p>
                                 <p class="text-caption text-grey-darken-2  mb-2">Use your information to log in.</p>
-                                <div>
-                                    <v-text-field :hide-details="true" color="primary-purple" class="mt-5" counter="25" variant="underlined" density="compact"  label="Username">
+                                <div class="mt-4">
+                                    <p v-if="!!errorMsg" class="text-caption text-error mb-2">{{errorMsg}}</p>
+                                    <v-text-field :rules="[v => !!v || 'Enter your email']" :error="error" v-model="email" :hide-details="false" color="primary-purple" class="mt-0" variant="underlined" density="compact"  label="Email address">
                                         <template v-slot:label>
                                             <span class="text-caption mt-1">E-mail</span>
                                         </template>
                                         <template v-slot:prepend-inner>
-                                            <v-icon class="mt-1" color="grey-darken-4" size="small">mdi-email-outline</v-icon>
+                                            <v-icon class="mt-1" :color="error ? 'error' : 'grey-darken-4'" size="small">mdi-email-outline</v-icon>
                                         </template>
                                     </v-text-field>
                                 </div>
                                 <div>
-                                    <v-text-field :hide-details="true" color="primary-purple" class="mt-5" counter="25" variant="underlined" density="compact" label="E-mail address">
+                                    <v-text-field :error="error" v-model="password"  :hide-details="true" color="primary-purple" class="mt-0" type="password"  variant="underlined" density="compact" label="Password">
                                         <template v-slot:label>
                                             <span class="text-caption mt-1">Password</span>
                                         </template>
                                         <template v-slot:prepend-inner>
-                                            <v-icon class=" mt-1" color="grey-darken-4" size="small">mdi-lock-outline</v-icon>
+                                            <v-icon class=" mt-1" :color="error ? 'error' : 'grey-darken-4'" size="small">mdi-lock-outline</v-icon>
                                         </template>
                                     </v-text-field>
                                 </div>
                                 <v-spacer class="my-2"></v-spacer>
                                 <div>
-                                        <v-btn size="large" variant="flat" color="primary-purple" class="mt-5 w-100 align-self-end text-capitalize" @click="login">Connect</v-btn>
+                                        <v-btn size="large" :loading="isLoading" variant="flat" color="primary-purple" class="mt-5 w-100 align-self-end text-capitalize" @click="login">Connect</v-btn>
                                         <p class="text-center text-body-2 mt-2 mb-5">Don't have an account yet ? <router-link to="/signup">Sign up</router-link></p>
                                 </div>
                             </div>
@@ -50,20 +51,84 @@
         </v-container>
   </div>
 </template>
+
 <script>
+import axios from 'axios'
 
 export default {
-    methods: {
-        login() {
-            this.$store.dispatch('changeLoginStatut')
+    data() {
+        return {
+            isLoading: false,
+            error: false,
+            errorMsg: '',
+            email: '',
+            password: ''
         }
     },
-    mounted() {
-        // fetch('http://localhost:3000/index.php').then(res => res.json()).then(data => console.log(data))
+    computed: {
+        isLogged() {
+            return this.$store.getters.isLogged
+        },
+        host() {
+            return this.$store.getters.host
+        }
+    },
+    methods: {
+        login() {
+            this.error = false
+            this.errorMsg = ''
+            this.isLoading = true
+            const body = {
+                email: this.email,
+                password: this.password
+            }
+            const headers = {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+
+            axios.post(this.host + '/auth/login', body, {headers})
+            .then(res => {
+                // Handling error
+                if(res.status != '200' && res.data.status != '200') {
+
+                    this.error = true
+                    this.errorMsg = 'Invalid username or password.'
+
+                } else {
+
+                    // Handling user data
+                    this.$store.dispatch('updateLogin', true)
+                    this.$store.dispatch('updateUser', res.data.data)
+                    this.isLoading = false
+                }
+            }).catch(res => {
+                this.isLoading = false
+                if (res.code == 'ERR_NETWORK') {
+                    this.errorMsg = 'Network Error Try Again.'
+                } else {
+                    this.error = true
+                    this.errorMsg = 'Invalid username or password.'
+                }
+            })
+        }
+    },
+    created() {
+        if (this.isLogged) {
+            // this.$router.push('/')
+            // localStorage.setItem('user', JSON.stringify({
+            //     "first_name": "yassine",
+            //     "last_name": "yassine",
+            //     "user_jwt": "Ya4Fgxc4OoP34f"
+            // }))
+            console.log(localStorage);
+            // return;
+        }
     }
 }
 </script>
 <style scoped>
+
+
 
 .login {
     min-height: 100vh;

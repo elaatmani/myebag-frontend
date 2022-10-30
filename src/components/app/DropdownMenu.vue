@@ -11,7 +11,11 @@
 </template>
 <script>
 export default {
-    props: ['isActive']
+    props: ['isActive'],
+    mounted() {
+        console.log('test: ');
+        console.log(this.$store.state.user.isLogged);
+    },
 }
 </script>
 <style scoped>
@@ -25,6 +29,7 @@ export default {
     overflow: hidden;
     max-height: 0px;
     transition: all .5s ease-out;
+    overflow-y: auto;
 }
 
 .fixed-header-menu-mobile.active {

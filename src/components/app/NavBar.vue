@@ -1,7 +1,8 @@
 <template>
     <div :class="display.mdAndUp.value ? 'fixed-header-pc' : 'fixed-header-mobile'" v-click-outside="closeMenu">
-        <v-container class="bg-white px-2 py-1 px-md-3 d-flex align-center justify-space-between rounded-lg elevation-0-5">
-            
+        <v-container
+            class="bg-white px-2 py-1 px-md-3 d-flex align-center justify-space-between rounded-lg elevation-0-5">
+
             <!-- Navogation Logo -->
             <div class="header-logo py-2">
                 <img src="favicon.svg" alt="myebag logo">
@@ -10,9 +11,10 @@
 
             <!-- Navigation  Links -->
             <div class="header-links" v-if="display.mdAndUp.value">
-                <v-hover v-slot="{isHovering, props}" v-for="link in links" :key="link.name">
-                    <v-btn  link :to="link.path"
-                    variant="text" v-bind="props" :color="isHovering ? 'primary-purple' : 'grey-darken-3'" class="text-capitalize no-hover">{{link.name}}</v-btn>
+                <v-hover v-slot="{ isHovering, props }" v-for="link in links" :key="link.name">
+                    <v-btn link :to="link.path" variant="text" v-bind="props"
+                        :color="isHovering ? 'primary-purple' : 'grey-darken-3'" class="text-capitalize no-hover">
+                        {{ link.name }}</v-btn>
                 </v-hover>
             </div>
 
@@ -24,38 +26,33 @@
                 <div>
                     <v-btn icon="mdi-shopping-outline" variant="text" color="grey-darken-3"></v-btn>
                 </div>
-                <div v-if="display.smAndDown.value">
-                    <v-btn :icon="isDropdownActive ? 'mdi-close' : 'mdi-menu'" variant="text" color="grey-darken-3" @click="toggleMenu"></v-btn>
+                <div v-if="display.smAndDown.value" >
+                    <v-btn :icon="isDropdownActive ? 'mdi-close' : 'mdi-menu'" variant="text" color="grey-darken-3"
+                        @click="toggleMenu"></v-btn>
                 </div>
-                <div v-if="isLogged" class="ml-3 mr-1 d-flex align-center">
-                    <v-avatar class="user-avatar" size="30" image="images/avatar/1.png"></v-avatar>
-                </div>
-                <div v-else>
-                    <v-btn icon="mdi-account-outline" variant="text" color="grey-darken-3"></v-btn>
-                </div>
+                
+                <!-- User Menu List Component -->
+
+                <UserMenu />
+
             </div>
         </v-container>
     </div>
 
     <!-- Drop Down Menu -->
     <DropdownMenu :isActive="isDropdownActive" />
-    
+
 </template>
+
 <script>
 import { useDisplay } from 'vuetify'
-import { useStore } from 'vuex'
 import DropdownMenu from './DropdownMenu.vue'
+import UserMenu from './UserMenu.vue'
 
 export default {
-    components: {DropdownMenu},
+    components: { DropdownMenu, UserMenu },
     data() {
         return {
-            links: [
-                { name: 'Home', path: '/' },
-                { name: 'Products', path: '/category'},
-                { name: 'About', path: '/about'},
-                { name: 'Login', path: '/login'},
-            ],
             isDropdownActive: false
         }
     },
@@ -63,16 +60,26 @@ export default {
         display() {
             return useDisplay()
         },
-        isLogged(){
-            return useStore().getters.isLogged
+        isLogged() {
+            return this.$store.user.getters.isLogged
+        },
+        links() {
+            let main = [
+                { name: 'Home', path: '/' },
+                { name: 'Women', path: '/category' },
+                { name: 'Men', path: '/about' },
+                { name: 'Api', path: '/api' },
+                { name: 'Contact', path: '/contact' },
+            ]
+
+            return main
         }
     },
     methods: {
-        toggleMenu(){
+        toggleMenu() {
             this.isDropdownActive = !this.isDropdownActive
         },
         closeMenu() {
-            
             this.isDropdownActive = false
         }
     }
@@ -118,7 +125,5 @@ export default {
     user-select: none;
 }
 
-.user-avatar {
-    cursor: pointer;
-}
+
 </style>
