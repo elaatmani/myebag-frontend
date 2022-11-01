@@ -102,11 +102,6 @@ export default {
     width: 95%;
 }
 
-
-
-
-
-
 .header-logo {
     width: fit-content;
     display: flex;
