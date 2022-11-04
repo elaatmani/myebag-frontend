@@ -1,7 +1,7 @@
 <template>
     <div :class="display.mdAndUp.value ? 'fixed-header-pc' : 'fixed-header-mobile'" v-click-outside="closeMenu">
         <v-container
-            class="bg-white px-2 py-1 px-md-3 d-flex align-center justify-space-between rounded-lg elevation-0-5">
+            class="bg-white px-2 py-1 px-md-3 d-flex align-center justify-space-between rounded-lg elevation-0-5 border-main">
 
             <!-- Navogation Logo -->
             <div class="header-logo py-2">
@@ -20,20 +20,21 @@
 
             <!-- Navigation Icons -->
             <div class="d-flex align-center">
-                <div>
-                    <v-btn icon="mdi-magnify" variant="text" color="grey-darken-3"></v-btn>
-                </div>
+                
+                <!-- Search bar component -->
+                <SearchBar />
+                
                 <div>
                     <v-btn icon="mdi-shopping-outline" variant="text" color="grey-darken-3"></v-btn>
                 </div>
                 <div v-if="display.smAndDown.value" >
                     <v-btn :icon="isDropdownActive ? 'mdi-close' : 'mdi-menu'" variant="text" color="grey-darken-3"
-                        @click="toggleMenu"></v-btn>
+                    @click="toggleMenu"></v-btn>
                 </div>
                 
                 <!-- User Menu List Component -->
-
                 <UserMenu />
+                
 
             </div>
         </v-container>
@@ -48,9 +49,10 @@
 import { useDisplay } from 'vuetify'
 import DropdownMenu from './DropdownMenu.vue'
 import UserMenu from './UserMenu.vue'
+import SearchBar from './SearchBar.vue'
 
 export default {
-    components: { DropdownMenu, UserMenu },
+    components: { DropdownMenu, UserMenu, SearchBar },
     data() {
         return {
             isDropdownActive: false
@@ -68,8 +70,7 @@ export default {
                 { name: 'Home', path: '/' },
                 { name: 'Women', path: '/category' },
                 { name: 'Men', path: '/about' },
-                { name: 'Api', path: '/api' },
-                { name: 'Contact', path: '/contact' },
+                { name: 'Children', path: '/contact' },
             ]
 
             return main
@@ -86,9 +87,12 @@ export default {
 }
 </script>
 <style scoped>
+.border-main {
+    border: 1px solid rgba(0, 0, 0, .1);
+}
 .fixed-header-pc {
     position: fixed;
-    z-index: 100;
+    z-index: 1000;
     top: 20px;
     width: 100%;
 }

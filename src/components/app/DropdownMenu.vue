@@ -29,7 +29,7 @@ export default {
     overflow: hidden;
     max-height: 0px;
     transition: all .5s ease-out;
-    overflow-y: auto;
+    /* overflow-y: auto; */
 }
 
 .fixed-header-menu-mobile.active {

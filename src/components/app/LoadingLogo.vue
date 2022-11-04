@@ -1,6 +1,6 @@
 <template>
     <div class="loading-container bg-white">
-        <div class="purple-square bg-pink-accent-3">
+        <div class="purple-square bg-primary-purple">
             <div class="loader-container">
                 <div class="loader">
                     
@@ -52,7 +52,7 @@ export default {
     }
 
     .loader-container {
-        animation: loading 1.5s forwards infinite;
+        animation: loading 1s ease forwards infinite;
     }
 
     
