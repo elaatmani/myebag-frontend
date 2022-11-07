@@ -1,39 +1,39 @@
 <template>
-  <div class="pt-main bg-white home">
-        <v-container class="px-md-0 top-1">
-            <div  class="bg-blue elevation-0-5 rounded-lg pa-5">
-              Welcome Home
-            </div>
-        </v-container>
+
+  <LoadingLogo v-if="isLoading" />
+
+  <div v-if="!isLoading" class="pt-main  home pb-16">
+        <HeroSection />
+        <OurServices />
+        <FeaturedProducts />
   </div>
 </template>
 
 <script>
 // Components
+import HeroSection from '@/components/home/HeroSection.vue';
+import OurServices from '@/components/home/OurServices.vue';
+import FeaturedProducts from '@/components/home/FeaturedProducts.vue';
+import LoadingLogo from '@/components/app/LoadingLogo.vue';
 
 export default {
   name: 'HomeView',
-
+  components: { HeroSection, OurServices, FeaturedProducts, LoadingLogo },
+  data() {
+    return {
+      isLoading: true
+    }
+  },
+  mounted() {
+    setTimeout(() => this.isLoading = false, 2000)
+  }
 };
 </script>
 
 <style scoped>
 .home {
-  min-height: 100vh;
+  /* min-height: 100vh; */
   position: relative;
-}
-
-.home::after {
-  background-image: url("@/assets/bg-home.webp");
-  background-size: contain;
-  position: absolute;
-  top: 0;
-  left:0;
-  content: '';
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  opacity: .5;
 }
 
 .top-1 {

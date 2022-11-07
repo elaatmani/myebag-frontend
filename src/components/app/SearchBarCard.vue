@@ -5,7 +5,7 @@
             <v-row>
                 <v-col cols="2" md="3"> 
                     <div class="w-100">
-                        <v-avatar rounded="lg" size="100%" image="images/products/1.jpg"></v-avatar>
+                        <v-avatar rounded="lg" size="100%" image="images/products/4.webp"></v-avatar>
                     </div>
                 </v-col>
                 <v-col cols="10" md="9">
