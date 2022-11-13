@@ -9,6 +9,7 @@
 </template>
 
 <script>
+// import axios from 'axios';
 import FooterVue from './components/app/FooterVue.vue';
 import NavBar from './components/app/NavBar.vue'
 
@@ -21,11 +22,19 @@ export default {
   }),
   methods: {
     checkUserStatus() {
-      if (localStorage.getItem('user') == null) {
+      if (localStorage.getItem('user') == 'null' || localStorage.getItem('user') == undefined || localStorage.getItem('user') == 'undefined') {
         this.$store.dispatch('updateLogin', false)
         this.$store.dispatch('updateUser', null)
+        console.log('user not logged');
+      } else {
+        const user = JSON.parse(localStorage.getItem('user'));
+        this.$store.dispatch('updateUser', user)
+        this.$store.dispatch('updateLogin', true)
       }
     }
+  },
+  mounted() {
+    this.checkUserStatus()
   }
 }
 </script>

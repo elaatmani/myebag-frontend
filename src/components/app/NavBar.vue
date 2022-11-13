@@ -1,7 +1,7 @@
 <template>
     <div :class="display.mdAndUp.value ? 'fixed-header-pc' : 'fixed-header-mobile'" v-click-outside="closeMenu">
         <v-container
-            class="bg-white px-2 py-1 px-md-3 d-flex align-center justify-space-between rounded-lg elevation-0-5 border-main">
+            class="bg-white px-2 py-1 px-md-3 d-flex align-center justify-space-between rounded-lg elevation-0-5 border-main full-container">
 
             <!-- Navogation Logo -->
             <div class="header-logo py-2">
@@ -99,7 +99,7 @@ export default {
 
 .fixed-header-mobile {
     position: fixed;
-    z-index: 100;
+    z-index: 1000;
     top: 20px;
     left: 50%;
     transform: translateX(-50%);

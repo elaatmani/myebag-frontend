@@ -4,7 +4,7 @@ body * {
 }
 
 @media screen and (min-width: 1200px) {
-    .v-container {
+    .v-container:not(.full-container) {
         max-width: 1200px !important;
     }
     

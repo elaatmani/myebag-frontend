@@ -1,6 +1,6 @@
 const user = {
     state: {
-        isLogged: true,
+        isLogged: false,
         user: null
     },
 
@@ -12,8 +12,10 @@ const user = {
     mutations: {
         updateLogin: (state, value) => {
             state.isLogged = value
+
         },
         updateUser: (state, value) => {
+            localStorage.setItem('user', JSON.stringify(value))
             state.user = value
         }
     },

@@ -16,38 +16,42 @@
                             <div class="form bg-white  rounded-lg px-5 py-5  px-md-8 d-flex flex-column">
                                 <p class="text-h6 text-grey-darken-3 mb-1">Get Started</p>
                                 <p class="text-caption text-grey-darken-2  mb-2">Use your email to create an account.</p>
-                                <div>
-                                    <v-text-field :hide-details="true" color="primary-purple" class="mt-5" counter="25" variant="underlined" density="compact"  label="First Name">
-                                        <template v-slot:label>
-                                            <span class="text-caption mt-1">First Name</span>
-                                        </template>
-                                        <template v-slot:prepend-inner>
-                                            <v-icon class="mt-1" color="grey-darken-4" size="small">mdi-account-outline</v-icon>
-                                        </template>
-                                    </v-text-field>
+                                <div class="d-flex gap-1">
+
+                                    <div class="w-50">
+                                        <v-text-field v-model="first_name" :rules="name_rules"  :hide-details="false" color="primary-purple" class="mt-5"  variant="underlined" density="compact"  label="First Name">
+                                            <template v-slot:label>
+                                                <span class="text-caption mt-1">First Name</span>
+                                            </template>
+                                            <template v-slot:prepend-inner>
+                                                <v-icon class="mt-1" color="grey-darken-4" size="small">mdi-account-outline</v-icon>
+                                            </template>
+                                        </v-text-field>
                                 </div>
-                                <div>
-                                    <v-text-field :hide-details="true" color="primary-purple" class="mt-5" counter="25" variant="underlined" density="compact"  label="Last Name">
+                                <div class="w-50">
+                                    <v-text-field v-model="last_name" :rules="name_rules" :hide-details="false" color="primary-purple" class="mt-5" variant="underlined" density="compact"  label="Last Name">
                                         <template v-slot:label>
                                             <span class="text-caption mt-1">Last Name</span>
                                         </template>
                                         <template v-slot:prepend-inner>
-                                            <v-icon class="mt-1" color="grey-darken-4" size="small">mdi-account-outline</v-icon>
-                                        </template>
+                                                <v-icon class="mt-1" color="grey-darken-4" size="small">mdi-account</v-icon>
+                                            </template>
                                     </v-text-field>
                                 </div>
+                            </div>
                                 <div>
-                                    <v-text-field :hide-details="true" color="primary-purple" class="mt-5" counter="25" variant="underlined" density="compact" label="E-mail address">
+                                    <v-text-field v-model="email" :loading="emailLoading"  :error="emailExist" :rules="email_rules" @keyup="handleKeyUp(email)" :hide-details="false" color="primary-purple" class="mt-0" variant="underlined" density="compact" label="E-mail address">
                                         <template v-slot:label>
-                                            <span class="text-caption mt-1">E-mail address</span>
+                                            <span class="text-caption mt-1">{{emailExist ? 'Email already exists' : 'E-mail address'}}</span>
                                         </template>
                                         <template v-slot:prepend-inner>
                                             <v-icon class=" mt-1" color="grey-darken-4" size="small">mdi-email-outline</v-icon>
                                         </template>
                                     </v-text-field>
                                 </div>
-                                <div>
-                                    <v-text-field :hide-details="true" color="primary-purple" class="mt-5" counter="25" variant="underlined" density="compact" label="Create password">
+                                
+                                    <div>
+                                    <v-text-field v-model="password" type="password" :rules="password_rules" :hide-details="false" color="primary-purple" class="mt-0" variant="underlined" density="compact" label="Create password">
                                         <template v-slot:label>
                                             <span class="text-caption mt-1">Create password</span>
                                         </template>
@@ -56,9 +60,20 @@
                                         </template>
                                     </v-text-field>
                                 </div>
+                                <div>
+                                    <v-text-field v-model="confirm_password" type="password" :rules="confirm_password_rules" :hide-details="false" color="primary-purple" class="mt-0" variant="underlined" density="compact" label="Create password">
+                                        <template v-slot:label>
+                                            <span class="text-caption mt-1">Confirm password</span>
+                                        </template>
+                                        <template v-slot:prepend-inner>
+                                            <v-icon class="mt-1" color="grey-darken-4" size="small">mdi-lock</v-icon>
+                                        </template>
+                                    </v-text-field>
+                                </div>
+                                
                                 <v-spacer class="my-2"></v-spacer>
                                 <div>
-                                        <v-btn size="large" variant="flat" color="primary-purple" class="mt-5 w-100 align-self-end text-capitalize">Create</v-btn>
+                                        <v-btn size="large" :disabled="!isFormValid" @click="signup" variant="flat" color="primary-purple" class="mt-5 w-100 align-self-end text-capitalize">Create</v-btn>
                                         <p class="text-center text-body-2 mt-2 mb-5">Already have an account ? <router-link to="/login">Log in</router-link></p>
                                 </div>
                             </div>
@@ -71,14 +86,123 @@
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
-    mounted() {
-        // fetch('http://localhost:3000/index.php').then(res => res.json()).then(data => console.log(data))
+    data() {
+        return {
+            emailLoading: false,
+            emailRequest: null,
+            emailExist: false,
+            first_name: '',
+            last_name: '',
+            email: '',
+            password: '',
+            confirm_password: '',
+
+            // rules to validate data
+            name_rules: [
+                value => !!value || 'This field is required.',
+                value => value.length >= 2 || "Min 2 characters.",
+                value => value.length <= 15 || "Max 15 characters.",
+            ],
+            email_rules: [
+                value => !!value || 'Required.',
+                value => (value || '').length <= 30 || 'Max 30 characters',
+                value => {
+                const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                return pattern.test(value) || 'Invalid e-mail.'
+                }
+            ],
+            password_rules: [
+                value => !!value || 'Password is required.',
+                value => value.length >= 8 || "Min 8 characters.",
+                value => value.length <= 15 || "Max 15 characters.",
+            ],
+            confirm_password_rules: [
+                value => value == this.password || 'Passwords are not the same.'
+            ]
+        }
+    },
+    methods: {
+        checkEmail(email) {
+            const headers = {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+
+            axios.post(this.$store.getters.host + '/auth/email', {email}, {headers})
+            .then(res => {
+                this.emailExist = false
+                if (res.data.message == "exist") {
+                    this.emailExist = true
+                } else {
+                    this.emailExist = false
+                }
+
+                this.emailLoading = false
+            })
+        },
+        handleKeyUp(email) {
+            clearTimeout(this.emailRequest)
+            if (this.email_rules[2](this.email) == true) {
+
+                this.emailLoading = true
+                this.emailRequest = setTimeout(() => {
+                    this.checkEmail(email)
+                }, 500)
+            }
+        },
+        signup() {
+            if (this.isFormValid) {
+                const body = {
+                    first_name: this.first_name,
+                    last_name: this.last_name,
+                    email: this.email,
+                    password: this.password
+                }
+                const headers = {
+                'Content-Type': 'application/x-www-form-urlencoded'
+                
+                }
+                axios.post(this.$store.getters.host + '/auth/signup', body, {
+                    headers
+                }).then(res => {
+                    if (res.data.status == "success") {
+                        this.$store.dispatch('updateLogin', true)
+                        this.$store.dispatch('updateUser', res.data)
+                        this.$router.push('/')
+                        
+                    }
+                })
+            } else {
+                console.log('is not valid')
+            }
+        }
+    },
+    computed: {
+        isFormValid() {
+            const email = this.email_rules[2](this.email) == true
+            const fname = this.name_rules[0](this.first_name) == true && this.name_rules[1](this.first_name) == true
+            const lname = this.name_rules[0](this.last_name) == true && this.name_rules[1](this.last_name) == true
+            const password = this.password_rules[1](this.password) == true && this.password_rules[2](this.password) == true
+            const cpassword = this.confirm_password_rules[0](this.confirm_password) == true
+
+            return  email && fname && lname && password && cpassword
+        },
+        isLogged() {
+            return this.$store.getters.isLogged
+        }
+    },
+    created() {
+        if (this.isLogged) {
+            this.$router.push('/')
+        }
     }
 }
 </script>
 <style scoped>
-
+.gap-1 {
+    gap: 5px;
+}
 
 .text-1::after {
     content: '';
@@ -148,7 +272,7 @@ export default {
 
 .form {
     width: 100%;
-    max-width: 380px;
+    max-width: 500px;
     min-height: 200px;
     position: relative;
     z-index: 3;

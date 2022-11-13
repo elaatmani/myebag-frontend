@@ -18,7 +18,7 @@
                                 <p class="text-caption text-grey-darken-2  mb-2">Use your information to log in.</p>
                                 <div class="mt-4">
                                     <p v-if="!!errorMsg" class="text-caption text-error mb-2">{{errorMsg}}</p>
-                                    <v-text-field :rules="[v => !!v || 'Enter your email']" :error="error" v-model="email" :hide-details="false" color="primary-purple" class="mt-0" variant="underlined" density="compact"  label="Email address">
+                                    <v-text-field @keyup="resetErrors" :rules="emailRule" :error="error" v-model="email" :hide-details="false" color="primary-purple" class="mt-0" variant="underlined" density="compact"  label="Email address">
                                         <template v-slot:label>
                                             <span class="text-caption mt-1">E-mail</span>
                                         </template>
@@ -28,7 +28,7 @@
                                     </v-text-field>
                                 </div>
                                 <div>
-                                    <v-text-field :error="error" v-model="password"  :hide-details="true" color="primary-purple" class="mt-0" type="password"  variant="underlined" density="compact" label="Password">
+                                    <v-text-field @keyup="resetErrors" :rules="passwordRule" :error="error" v-model="password"  :hide-details="false" color="primary-purple" class="mt-0" type="password"  variant="underlined" density="compact" label="Password">
                                         <template v-slot:label>
                                             <span class="text-caption mt-1">Password</span>
                                         </template>
@@ -39,7 +39,7 @@
                                 </div>
                                 <v-spacer class="my-2"></v-spacer>
                                 <div>
-                                        <v-btn size="large" :loading="isLoading" variant="flat" color="primary-purple" class="mt-5 w-100 align-self-end text-capitalize" @click="login">Connect</v-btn>
+                                        <v-btn :disabled="!isFormValid" size="large" :loading="isLoading" variant="flat" color="primary-purple" class="mt-5 w-100 align-self-end text-capitalize" @click="login">Connect</v-btn>
                                         <p class="text-center text-body-2 mt-2 mb-5">Don't have an account yet ? <router-link to="/signup">Sign up</router-link></p>
                                 </div>
                             </div>
@@ -55,6 +55,7 @@
 <script>
 import axios from 'axios'
 
+
 export default {
     data() {
         return {
@@ -62,66 +63,101 @@ export default {
             error: false,
             errorMsg: '',
             email: '',
-            password: ''
+            password: '',
+            // Email pattern regex
+            emailRule: [
+                    value => !!value || 'Required.',
+                    value => (value || '').length <= 30 || 'Max 30 characters',
+                    value => {
+                    const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                    return pattern.test(value) || 'Invalid e-mail.'
+                    },
+                ],
+            passwordRule: [
+                value => !!value || 'Required.'
+            ]
         }
     },
     computed: {
         isLogged() {
             return this.$store.getters.isLogged
         },
+        // Check if the form data is valid
+        isFormValid() {
+            if (this.emailRule[0](this.email) == true && this.password.length >= 8) {
+                return true
+            } else {
+                return false
+            }
+        },
         host() {
             return this.$store.getters.host
-        }
+        },
+        
     },
     methods: {
-        login() {
+        goHome() {
+            this.$router.push('/')
+        },
+        resetErrors() {
             this.error = false
             this.errorMsg = ''
+        },
+        login() {
+            // Reset all values to default
+            this.resetErrors()
             this.isLoading = true
             const body = {
                 email: this.email,
                 password: this.password
             }
+
             const headers = {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
 
-            axios.post(this.host + '/auth/login', body, {headers})
-            .then(res => {
-                // Handling error
-                if(res.status != '200' && res.data.status != '200') {
 
-                    this.error = true
-                    this.errorMsg = 'Invalid username or password.'
+            // If the form is valid we send request to log the user
+            if (this.isFormValid) {                
+                axios.post(this.host + '/auth/login', body, {headers})
+                .then(res => {
+                    // Handling error
+                    if(res.status != '200' || res.data.status == 'failed') {
 
-                } else {
+                        this.error = true
+                        this.errorMsg = res.data.message
+                        this.isLoading = false
 
-                    // Handling user data
-                    this.$store.dispatch('updateLogin', true)
-                    this.$store.dispatch('updateUser', res.data.data)
+                    } else if(res.data.user != undefined) {
+
+                        // Handling user data
+                        this.$store.dispatch('updateLogin', true)
+                        this.$store.dispatch('updateUser', res.data.user)
+                        console.log(this.$store.getters.user);
+                        this.isLoading = false
+                        this.resetErrors()
+                        this.goHome();
+                    } else {
+                        this.errorMsg = 'Network Error Try Again.'
+                        this.isLoading = false
+                        // this.error = true
+                    }
+
+                    // console.log(res.data);
+                }).catch(res => {
                     this.isLoading = false
-                }
-            }).catch(res => {
-                this.isLoading = false
-                if (res.code == 'ERR_NETWORK') {
-                    this.errorMsg = 'Network Error Try Again.'
-                } else {
-                    this.error = true
-                    this.errorMsg = 'Invalid username or password.'
-                }
-            })
+                    if (res.code == 'ERR_NETWORK') {
+                        this.errorMsg = 'Network Error Try Again.'
+                    } else {
+                        this.errorMsg = 'Invalid username or password.'
+                    }
+                })
+            }
         }
     },
     created() {
         if (this.isLogged) {
-            // this.$router.push('/')
-            // localStorage.setItem('user', JSON.stringify({
-            //     "first_name": "yassine",
-            //     "last_name": "yassine",
-            //     "user_jwt": "Ya4Fgxc4OoP34f"
-            // }))
-            console.log(localStorage);
-            // return;
+            this.$router.push('/')
         }
     }
 }
