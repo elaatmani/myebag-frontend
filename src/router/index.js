@@ -4,6 +4,7 @@ import AboutView from '../views/AboutView.vue'
 import LoginView from '@/views/LoginView.vue'
 import SignupView from '@/views/SignupView.vue'
 import TestingApi from '@/views/TestingApi.vue'
+import ProductView from '@/views/ProductView.vue'
 import ProfileView from '@/views/ProfileView.vue'
 import LoadingLogo from '@/components/app/LoadingLogo.vue'
 
@@ -42,6 +43,12 @@ const routes = [
     path: '/load',
     name: 'load',
     component: LoadingLogo
+  }
+  ,
+  {
+    path: '/product',
+    name: 'product',
+    component: ProductView
   }
 ]
 
