@@ -1,6 +1,6 @@
 const user = {
     state: {
-        isLogged: false,
+        isLogged: true,
         user: null
     },
 
