@@ -5,10 +5,10 @@
   <div v-if="!isLoading" class="pt-main  home pb-16">
         <HeroSection />
         <OurServices />
-        <ProductsContainer :products="featuredProducts" title="Featured Products" />
-        <ProductsContainer :products="recommendedProducts" title="Recommended For You" />
-        <ProductsContainer :products="hoodiesProducts" title="Shoes" />
-        <ProductsContainer :products="shoesProducts" title="Hoodies" />
+        <ProductsContainer :products="shoes" title="Shoes" />
+        <ProductsContainer :products="hoodies" title="Hoodies" />
+        <ProductsContainer :products="watches" title="Watches" />
+        <NewsLetter />
       
   </div>
 </template>
@@ -18,11 +18,12 @@
 import HeroSection from '@/components/home/HeroSection.vue';
 import OurServices from '@/components/home/OurServices.vue';
 import ProductsContainer from '@/components/home/ProductsContainer.vue';
+import NewsLetter from '@/components/home/NewsLetter.vue';
 import LoadingLogo from '@/components/app/LoadingLogo.vue';
 
 export default {
   name: 'HomeView',
-  components: { HeroSection, OurServices, ProductsContainer, LoadingLogo },
+  components: { HeroSection, OurServices, ProductsContainer, LoadingLogo, NewsLetter },
   data() {
     return {
       isLoading: true,
@@ -32,23 +33,23 @@ export default {
           { id: 3, name: "Apple Watch 3", price: "169.99", rating: 5, image: "images/products/4.webp" },
           { id: 4, name: "Nike Air Jordan 4", price: "179.99", rating: 1, image: "images/products/3.webp" }
       ],
-      recommendedProducts: [
-          { id: 1, name: "Nike Air Jordan 1", price: "149.99", rating: 2, image: "images/products/2.webp" },
-          { id: 2, name: "Pink Panther Diamond ring", price: "159.99", rating: 3, image: "images/products/2.webp" },
-          { id: 3, name: "Apple Watch 3", price: "169.99", rating: 5, image: "images/products/3.webp" },
-          { id: 4, name: "Nike Air Jordan 4", price: "179.99", rating: 1, image: "images/products/3.webp" }
+      watches: [
+          { id: 1, name: "Nike Air Jordan 1", price: "149.99", rating: 2, image: "images/products/watches/1/1.jpg" },
+          { id: 2, name: "Pink Panther Diamond ring", price: "159.99", rating: 3, image: "images/products/watches/2/1.jpg" },
+          { id: 3, name: "Apple Watch 3", price: "169.99", rating: 5, image: "images/products/watches/3/1.webp" },
+          { id: 4, name: "Nike Air Jordan 4", price: "179.99", rating: 1, image: "images/products/watches/4/1.webp" }
       ],
-      shoesProducts: [
-          { id: 1, name: "Nike Air Jordan 1", price: "149.99", rating: 2, image: "images/products/4.webp" },
-          { id: 2, name: "Pink Panther Diamond ring", price: "159.99", rating: 3, image: "images/products/4.webp" },
-          { id: 3, name: "Apple Watch 3", price: "169.99", rating: 5, image: "images/products/4.webp" },
-          { id: 4, name: "Nike Air Jordan 4", price: "179.99", rating: 1, image: "images/products/4.webp" }
+      shoes: [
+          { id: 1, name: "Nike Air Jordan 1", price: "149.99", rating: 2, image: "images/products/shoes/1/1.webp" },
+          { id: 2, name: "Pink Panther Diamond ring", price: "159.99", rating: 3, image: "images/products/shoes/2/1.webp" },
+          { id: 3, name: "Apple Watch 3", price: "169.99", rating: 5, image: "images/products/shoes/3/1.webp" },
+          { id: 4, name: "Nike Air Jordan 4", price: "179.99", rating: 1, image: "images/products/shoes/4/1.webp" }
       ],
-      hoodiesProducts: [
-          { id: 1, name: "Nike Air Jordan 1", price: "149.99", rating: 2, image: "images/avatar/1.webp" },
-          { id: 2, name: "Pink Panther Diamond ring", price: "159.99", rating: 3, image: "images/avatar/2.webp" },
-          { id: 3, name: "Apple Watch 3", price: "169.99", rating: 5, image: "images/avatar/4.webp" },
-          { id: 4, name: "Nike Air Jordan 4", price: "179.99", rating: 1, image: "images/avatar/3.webp" }
+      hoodies: [
+          { id: 1, name: "Nike Air Jordan 1", price: "149.99", rating: 2, image: "images/products/hoodies/1/1.webp" },
+          { id: 2, name: "Pink Panther Diamond ring", price: "159.99", rating: 3, image: "images/products/hoodies/2/1.webp" },
+          { id: 3, name: "Apple Watch 3", price: "169.99", rating: 5, image: "images/products/hoodies/3/1.webp" },
+          { id: 4, name: "Nike Air Jordan 4", price: "179.99", rating: 1, image: "images/products/hoodies/4/1.webp" }
       ]
     }
   },

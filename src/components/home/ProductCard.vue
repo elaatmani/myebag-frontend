@@ -53,18 +53,22 @@
                 </div>
             <div class="card-content-mobile d-flex flex-column pa-3">
                 <div class="w-100 position-relative">
-                    <p class="text-truncate">{{ product.name }}</p>
+                    <p class="text-truncate text-subtitle-2">{{ product.name }}</p>
                     <div class="rating d-flex align-center text-primary-purple" >
                         <v-rating :readonly="true" density="compact" v-model="rating" ></v-rating>
                         <span class="text-h6">({{ rating }})</span>
                     </div>
                 </div>
                 <v-spacer></v-spacer>
-                <div>
+                <div class="d-flex justify-space-between align-end">
                     <div class="position-relative price">
                         <!-- <p class="mobile-old-price">${{ product?.oldPrice }}</p> -->
-                        <p class="old-price text-caption">$290.99</p>
+                        <p class="old-price text-caption text-grey">$290.99</p>
                         <p>${{ product.price }}</p>
+                    </div>
+                    <div>
+                        <v-btn variant="outlined" size="x-small" color="primary-purple" icon="mdi-chevron-right">
+                        </v-btn>
                     </div>
                 </div>
             </div>
@@ -165,7 +169,7 @@ export default {
 
 .card-image-mobile img {
     width: 100%;
-    object-fit: cover;
+    object-fit: contain;
 
     height: 100%;
 }

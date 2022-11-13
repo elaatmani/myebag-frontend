@@ -4,7 +4,7 @@
     <v-main>
       <router-view/>
     </v-main>
-    <FooterVue v-if="false" />
+    <FooterVue />
   </v-app>
 </template>
 

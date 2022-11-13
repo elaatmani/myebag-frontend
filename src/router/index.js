@@ -4,6 +4,7 @@ import AboutView from '../views/AboutView.vue'
 import LoginView from '@/views/LoginView.vue'
 import SignupView from '@/views/SignupView.vue'
 import TestingApi from '@/views/TestingApi.vue'
+import ProfileView from '@/views/ProfileView.vue'
 import LoadingLogo from '@/components/app/LoadingLogo.vue'
 
 const routes = [
@@ -26,8 +27,12 @@ const routes = [
     path: '/signup',
     name: 'signup',
     component: SignupView
-  }
-  ,
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: ProfileView
+  },
   {
     path: '/api',
     name: 'api',
