@@ -17,7 +17,7 @@
                                 <p class="text-h6 text-grey-darken-3 mb-1">Login</p>
                                 <p class="text-caption text-grey-darken-2  mb-2">Use your information to log in.</p>
                                 <div class="mt-4">
-                                    <p v-if="!!errorMsg" class="text-caption text-error mb-2">{{errorMsg}}</p>
+                                    <p v-if="!!errorMsg" class="text-caption text-pink mb-2">{{errorMsg}}</p>
                                     <v-text-field @keyup="resetErrors" :rules="emailRule" :error="error" v-model="email" :hide-details="false" color="primary-purple" class="mt-0" variant="underlined" density="compact"  label="Email address">
                                         <template v-slot:label>
                                             <span class="text-caption mt-1">E-mail</span>

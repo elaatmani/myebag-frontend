@@ -165,7 +165,7 @@
               >
                 <div class="">
                   <img
-                    src="images/ymal1.webp"
+                    src="../images/ymal1.webp"
                     alt="image"
                     class="pa-2 w-100 mr-md-5 mr-lg-5"
                   />
@@ -173,7 +173,7 @@
                 </div>
                 <div class="">
                   <img
-                    src="images/ymal2.webp"
+                    src="../images/ymal2.webp"
                     alt="image"
                     class="pa-2 w-100 mr-md-5 mr-lg-5"
                   />
@@ -189,7 +189,7 @@
               >
                 <div class="">
                   <img
-                    src="images/ymal3.webp"
+                    src="../images/ymal3.webp"
                     alt="image"
                     class="pa-2 w-100 mr-md-5 mr-lg-5"
                   />
@@ -197,7 +197,7 @@
                 </div>
                 <div class="">
                   <img
-                    src="images/ymal4.webp"
+                    src="../images/ymal4.webp"
                     alt="image"
                     class="pa-2 w-100 mr-md-5 mr-lg-5"
                   />
@@ -215,6 +215,7 @@
 
 <script>
 import ReviewCard from "@/components/product/ReviewCard.vue";
+import axios from 'axios';
 export default {
   props: ['itemsNum'],
   components: { ReviewCard },
@@ -229,17 +230,17 @@ export default {
       isOn444: false,
       text_black1: "text-primary-cyan",
       text_black4: "text-black",
-      im0: "images/im0.jpg",
-      im1: "images/im1.webp",
+      im0: "../images/im0.jpg",
+      im1: "../images/im1.webp",
       im01: "",
 
-      im2: "images/im2.webp",
+      im2: "../images/im2.webp",
       im02: "",
 
-      im3: "images/im3.webp",
+      im3: "../images/im3.webp",
       im03: "",
 
-      im4: "images/im4.webp",
+      im4: "../images/im4.webp",
       im04: "",
       showModal: false,
       reviews: [
@@ -266,7 +267,8 @@ export default {
         },
       ],
       product : 
-        {id:1 , name:'nike Air Jordan', artNum:'ANIKE2635', price: '340$', rating : 3.4, image: 'images/im0.jpg'},
+      {id:1 , name:'nike Air Jordan', artNum:'ANIKE2635', price: '340$', rating : 3.4, image: 'images/im0.jpg'},
+      isLoading: true
       
     };
   },
@@ -313,6 +315,14 @@ export default {
       this.isOn111 = false;
     },
   },
+  mounted() {
+    const id = this.$route.params.id
+    axios.get('http://localhost:8000/product?id=' + id)
+    .then(res => {
+
+      console.log(res.data);
+    })
+  }
 };
 </script>
 

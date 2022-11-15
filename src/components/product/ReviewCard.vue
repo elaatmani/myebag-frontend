@@ -32,7 +32,7 @@ export default {
   props: ['review'],
   data() {
     return {
-      im0: "images/avatar/1.png",
+      im0: "../images/avatar/1.webp",
       // products : [
       //     {id:1 , name:'nike Air Jordan', artNum:'ANIKE2635', price: '340$', rating : 3.4, image: 'images/im0.jpg'},
       //     {id:2 , name:'nike Air Jordan', artNum:'ANIKE7825', price: '299$', rating : 4.3, image: 'images/im0.jpg'},

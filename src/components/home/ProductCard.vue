@@ -96,6 +96,7 @@ export default {
     methods: {
         redirectToProduct() {
             this.$router.push('/product/' + this.product.id)
+            // this.$router.push('/product')
         }
     },
     created() {

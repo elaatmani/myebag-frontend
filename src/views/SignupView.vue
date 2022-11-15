@@ -16,6 +16,7 @@
                             <div class="form bg-white  rounded-lg px-5 py-5  px-md-8 d-flex flex-column">
                                 <p class="text-h6 text-grey-darken-3 mb-1">Get Started</p>
                                 <p class="text-caption text-grey-darken-2  mb-2">Use your email to create an account.</p>
+                                <p v-if="errorMsg" class="text-caption text-pink mb-n2">{{ errorMsg }}</p>
                                 <div class="d-flex gap-1">
 
                                     <div class="w-50">
@@ -73,7 +74,7 @@
                                 
                                 <v-spacer class="my-2"></v-spacer>
                                 <div>
-                                        <v-btn size="large" :disabled="!isFormValid" @click="signup" variant="flat" color="primary-purple" class="mt-5 w-100 align-self-end text-capitalize">Create</v-btn>
+                                        <v-btn size="large" :loading="isLoading" :disabled="!isFormValid" @click="signup" variant="flat" color="primary-purple" class="mt-5 w-100 align-self-end text-capitalize">Create</v-btn>
                                         <p class="text-center text-body-2 mt-2 mb-5">Already have an account ? <router-link to="/login">Log in</router-link></p>
                                 </div>
                             </div>
@@ -90,9 +91,11 @@ import axios from 'axios'
 export default {
     data() {
         return {
+            isLoading: false,
             emailLoading: false,
             emailRequest: null,
             emailExist: false,
+            errorMsg: '',
             first_name: '',
             last_name: '',
             email: '',
@@ -139,7 +142,11 @@ export default {
                 }
 
                 this.emailLoading = false
-            })
+            }).catch(err => {
+                this.emailLoading = false
+                this.errorMsg = err.message
+            }
+            )
         },
         handleKeyUp(email) {
             clearTimeout(this.emailRequest)
@@ -152,7 +159,9 @@ export default {
             }
         },
         signup() {
+            this.errorMsg = ''
             if (this.isFormValid) {
+                this.isLoading = true
                 const body = {
                     first_name: this.first_name,
                     last_name: this.last_name,
@@ -167,11 +176,15 @@ export default {
                     headers
                 }).then(res => {
                     if (res.data.status == "success") {
+                        this.isLoading = false
                         this.$store.dispatch('updateLogin', true)
                         this.$store.dispatch('updateUser', res.data)
                         this.$router.push('/')
                         
                     }
+                }).catch(err => {
+                    this.errorMsg = err.message
+                    this.isLoading = false
                 })
             } else {
                 console.log('is not valid')
