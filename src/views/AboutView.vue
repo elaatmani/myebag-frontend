@@ -1,7 +1,17 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-    <router-link to="/">To Home</router-link>
+  <div class="pt-main about bg-green-accent-2">
+    <v-container class="px-md-0">
+      <div class="bg-pink w-100 pa-3 rounded-lg">
+        This is an about page
+
+      </div>
+    </v-container>
 
   </div>
 </template>
+
+<style scoped>
+.about {
+  min-height: 100vh;
+}
+</style>

@@ -1,13 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
-import LoadingView from '@/components/app/LoadingLogo.vue'
+import LoginView from '@/views/LoginView.vue'
+import SignupView from '@/views/SignupView.vue'
+import TestingApi from '@/views/TestingApi.vue'
+import ProductView from '@/views/ProductView.vue'
+import ProfileView from '@/views/ProfileView.vue'
+import LoadingLogo from '@/components/app/LoadingLogo.vue'
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: LoadingView
+    component: HomeView
   },
   {
     path: '/about',
@@ -15,15 +20,46 @@ const routes = [
     component: AboutView
   },
   {
+    path: '/login',
+    name: 'login',
+    component: LoginView
+  },
+  {
+    path: '/signup',
+    name: 'signup',
+    component: SignupView
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: ProfileView
+  },
+  {
+    path: '/api',
+    name: 'api',
+    component: TestingApi
+  },
+  {
     path: '/load',
     name: 'load',
-    component: HomeView
+    component: LoadingLogo
+  }
+  ,
+  {
+    path: '/product/:id',
+    name: 'product',
+    component: ProductView
   }
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((next, prev) => {
+  console.log(next.path);
+  console.log(prev.path);
 })
 
 export default router

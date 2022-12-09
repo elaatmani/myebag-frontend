@@ -1,13 +1,15 @@
 <template>
     <div class="loading-container bg-white">
-        <div class="purple-square bg-primary-purple">
-            <div class="loader-container">
-                <div class="loader">
-                    
+        <div class="container">
+
+            <div class="purple-square bg-primary-purple">
+                <div class="loader-container">
+                    <div class="loader">
+                    </div>
                 </div>
             </div>
+            <div class="cyan-square bg-primary-cyan"></div>
         </div>
-        <div class="cyan-square bg-primary-cyan"></div>
     </div>
 </template>
 <script>
@@ -16,6 +18,9 @@ export default {
 }
 </script>
 <style scoped>
+    .container {
+        transform: scale(.7);
+    }
     .loading-container {
         position: fixed;
         top: 0;
@@ -23,6 +28,10 @@ export default {
         width: 100%;
         height: 100%;
         z-index: 100;
+        transform: scale(1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .purple-square, .cyan-square {
@@ -52,7 +61,7 @@ export default {
     }
 
     .loader-container {
-        animation: loading 1.5s forwards infinite;
+        animation: loading 1s ease forwards infinite;
     }
 
     
