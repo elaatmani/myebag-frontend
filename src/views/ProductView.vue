@@ -79,9 +79,9 @@
                 >
               </div>
             </div>
-            <div class="mt-10 mb-8">
+            <!-- <div class="mt-10 mb-8">
               {{product.desc}}
-            </div>
+            </div> -->
           </v-col>
         </v-row>
         <v-row>
@@ -98,7 +98,7 @@
                 class="link1 text-decoration-none textshadow"
                 @click="isOn11"
               >
-                Information</router-link
+                Description</router-link
               >
             </div>
             <div>
@@ -112,9 +112,9 @@
             </div>
           </v-col>
           <div v-if="isOn111" class="w-100 pa-10 boxshadow">
-            <!-- {{product.infos}} -->
-            edit esse nesciunt labore, magni error expedita tempora possimus illo est,
-            sunt ullam facere nulla provident, necessitatibus sequi aliquam quidem.
+            {{product.desc}}
+            <!-- edit esse nesciunt labore, magni error expedita tempora possimus illo est,
+            sunt ullam facere nulla provident, necessitatibus sequi aliquam quidem. -->
           </div>
           <div v-if="isOn444">
             <div class="reviews-container">
@@ -123,9 +123,9 @@
           </div>
           <div class="b2 w-100"></div>
         </v-row>
-        <div class="mt-13 mb-12">
+        <!-- <div class="mt-13 mb-12">
           <span class="text-primary-cyan">You Might Be Intrested In Those Products</span>
-        </div>
+        </div> -->
         <div>
           <v-row>
             <div

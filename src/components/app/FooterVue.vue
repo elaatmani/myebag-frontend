@@ -40,17 +40,10 @@ export default {
     data() {
         return {
             links: [
-<<<<<<< HEAD
                 {name: 'Home', path: '/'},
                 {name: 'Shoes', path: '/category/shoes'},
                 {name: 'Hoodies', path: '/category/hoodies'},
                 {name: 'Watches', path: '/category/watches'}
-=======
-                {name: 'Home'},
-                {name: 'Shoes'},
-                {name: 'Hoodies'},
-                {name: 'Watches'}
->>>>>>> fd940719cb94a4495747b79c24a953a823327c32
             ]
         }
     }
@@ -73,7 +66,6 @@ export default {
     width: 90%;
     max-width: 30px;
 }
-<<<<<<< HEAD
 
 .link {
     cursor: pointer;
@@ -84,6 +76,3 @@ export default {
     color: rgb(var(--v-theme-primary-purple))
 }
 </style>
-=======
-</style>
->>>>>>> fd940719cb94a4495747b79c24a953a823327c32
