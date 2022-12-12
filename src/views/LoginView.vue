@@ -133,7 +133,6 @@ export default {
                         // Handling user data
                         this.$store.dispatch('updateLogin', true)
                         this.$store.dispatch('updateUser', res.data.user)
-
                         console.log(this.$store.getters.user);
                         this.isLoading = false
                         this.resetErrors()

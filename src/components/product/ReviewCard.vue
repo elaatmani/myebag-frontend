@@ -1,8 +1,6 @@
 <template>
   <!-- <div class="backdrop" @click.self="closeProductReview"> -->
   <div class="modal">
-    <!-- :class="display.mdAndUp.value" -->
-    <div>
       <div class="line pa-5 my-2 mx-6">
         <div class="d-flex">
           <v-avatar class="user-avatar" size="33" :image="im0"></v-avatar>
@@ -22,25 +20,15 @@
         ></v-rating>
         <p class="mt-1 ml-3">{{ review.descript }}</p>
       </div>
-    </div>
   </div>
 </template>
 
 <script>
-// import { useDisplay } from 'vuetify'
 export default {
   props: ['review'],
   data() {
     return {
-      im0: "../images/avatar/1.webp",
-      // products : [
-      //     {id:1 , name:'nike Air Jordan', artNum:'ANIKE2635', price: '340$', rating : 3.4, image: 'images/im0.jpg'},
-      //     {id:2 , name:'nike Air Jordan', artNum:'ANIKE7825', price: '299$', rating : 4.3, image: 'images/im0.jpg'},
-      //     {id:3 , name:'nike Air Jordan', artNum:'ANIKE2373', price: '200$', rating : 3.9, image: 'images/im0.jpg'},
-      //     {id:4 , name:'nike Air Jordan', artNum:'ANIKE7842', price: '199$', rating : 4.1, image: 'images/im0.jpg'},
-      //     {id:5 , name:'nike Air Jordan', artNum:'ANIKE0923', price: '250$', rating : 4.4, image: 'images/im0.jpg'},
-      //     {id:6 , name:'nike Air Jordan', artNum:'ANIKE1836', price: '300$', rating : 4.7, image: 'images/im0.jpg'},
-      // ],
+      im0: "images/avatar/1.png",
       
       rating: 0,
       itemsNum: "",
@@ -70,19 +58,18 @@ export default {
   width: 80%;
   margin: 0 auto;
   overflow-x: hidden;
-  max-height: 300px;
   border: none;
   width: 100%;
-  padding: 20px 0;
+  padding: 20px 0px;
   margin: 0px auto;
   background-color: white;
 }
-.backdrop {
+/* .backdrop {
   top: 0;
   position: fixed;
   background: rgba(0, 0, 0, 0.5);
-  height: 100%;
-}
+  height: auto;
+} */
 
 .text-grey-lighten-1 {
   font-size: 10px;
