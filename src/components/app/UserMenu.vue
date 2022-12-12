@@ -77,24 +77,6 @@ export default {
         return {
             isOpen: false,
             iconStatus: false,
-            options: [
-                {
-                    name: 'My Profile', 
-                    path: '/profile',
-                    icon: 'mdi-account-circle-outline'
-                },
-                {
-                    name: 'Wishlist', 
-                    path: '/wishlist',
-                    icon: 'mdi-heart-outline'
-                },
-                {
-                    name: 'Orders', 
-                    path: '/orders',
-                    icon: 'mdi-package-variant-closed'
-
-                }
-            ],
             loginOptions: [
             {
                     name: 'Log in', 
@@ -118,6 +100,35 @@ export default {
         },
         isLogged() {
             return this.$store.state.user.isLogged
+        },
+        options() {
+            let options = [
+                {
+                    name: 'My Profile', 
+                    path: '/profile',
+                    icon: 'mdi-account-circle-outline'
+                },
+                {
+                    name: 'Wishlist', 
+                    path: '/wishlist',
+                    icon: 'mdi-heart-outline'
+                },
+                {
+                    name: 'Orders', 
+                    path: '/orders',
+                    icon: 'mdi-package-variant-closed'
+
+                }
+            ]
+            if (this.$store.getters.isAdmin) {
+                options.unshift({
+                    name: 'Dashboard',
+                    path: '/dashboard',
+                    icon: 'mdi-view-dashboard-outline'
+                })
+            }
+
+            return options
         }
     },
     methods: {

@@ -4,7 +4,7 @@
     <v-main>
       <router-view/>
     </v-main>
-    <FooterVue />
+    <FooterVue v-if="$route.path != '/dashboard'" />
   </v-app>
 </template>
 
@@ -30,6 +30,7 @@ export default {
         const user = JSON.parse(localStorage.getItem('user'));
         this.$store.dispatch('updateUser', user)
         this.$store.dispatch('updateLogin', true)
+        console.log(user);
       }
     }
   },

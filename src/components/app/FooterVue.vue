@@ -20,13 +20,15 @@
                         <div class="pr-md-10">
                             <h3 class="text-body-1 mt-md-3 mb-md-3 ">Quick Links</h3>
                             <div class="d-flex flex-column">
-                                <div v-for="link in links" :key="link.name" color="grey-darken-3" class="text-capitalize text-start text-caption pl-0 no-hover" :ripple="false" style="width: fit-content" variant="outlined">{{ link.name }}</div>
+                                <div v-for="link in links" :key="link.name" color="grey-darken-3" class="text-body-2 text-start text-caption pl-0 mb-2 link"  @click="$router.push(link.path)">{{ link.name }}</div>
                                 
                             </div>
                         </div>
                     </v-col>
                     <v-col cols="12" md="4">
-
+                        <div class="py-10">
+                            <img class="w-75" src="/images/payment.png" alt="payment" />
+                        </div>
                     </v-col>
                 </v-row>
             </div>
@@ -38,10 +40,10 @@ export default {
     data() {
         return {
             links: [
-                {name: 'Home'},
-                {name: 'Shoes'},
-                {name: 'Hoodies'},
-                {name: 'Watches'}
+                {name: 'Home', path: '/'},
+                {name: 'Shoes', path: '/category/shoes'},
+                {name: 'Hoodies', path: '/category/hoodies'},
+                {name: 'Watches', path: '/category/watches'}
             ]
         }
     }
@@ -63,5 +65,14 @@ export default {
 .header-logo img {
     width: 90%;
     max-width: 30px;
+}
+
+.link {
+    cursor: pointer;
+    transition-duration: .2s;
+}
+
+.link:hover {
+    color: rgb(var(--v-theme-primary-purple))
 }
 </style>

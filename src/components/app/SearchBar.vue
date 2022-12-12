@@ -12,7 +12,7 @@
         <div :class="isActive ? '' : 'd-none'">
             <div :class="display.smAndUp.value ? 'search-bar-container-pc' : 'search-bar-container-mobile'"
             class="pa-4 bg-white rounded-lg d-flex align-center">
-                <input autocomplete="off" ref="search" v-model="searchHint" type="text" placeholder="Search" class="search-input pr-3 pl-10">
+                <input @keyup="search" autocomplete="off" ref="search" v-model="searchHint" type="text" placeholder="Search" class="search-input pr-3 pl-10">
                 <v-btn class="search-btn text-primary-purple no-hover" :ripple="false"  variant="flat" color="transparent" icon="mdi-magnify"></v-btn>
             </div>
 
@@ -22,11 +22,15 @@
 
                 </div>
                 <div class="w-100 pa-2" :class="!isLoading && searchHint != '' ? '' : 'd-none'">
-                    <SearchBarCard @closeSearch="closeSearchBar" />
-                    <SearchBarCard @closeSearch="closeSearchBar" />
-                    <SearchBarCard @closeSearch="closeSearchBar" />
-                    <div class="d-flex justify-end mt-2">
+                    <div v-if="result.length == 0">
+                        No results 
+                    </div>
+                    <div v-else>
+
+                        <SearchBarCard v-for="product in filtredResult" :key="product.id" :product="product"  @closeSearch="closeSearchBar" />
+                        <div class="d-flex justify-end mt-2">
                             <v-btn class="no-hover text-capitalize pr-0 text-body-2" :ripple="false" density="compact" color="primary-purple" variant="text">View more <v-icon class="ml-2">mdi-arrow-right</v-icon></v-btn>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -35,6 +39,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import { useDisplay } from 'vuetify'
 import SearchBarCard from './SearchBarCard.vue'
 export default {
@@ -45,12 +50,18 @@ export default {
             isActive: false,
             isLoading: true,
             searchHint: '',
+            searchRequest: null,
             result: []
         }
     },
     computed: {
         display() {
             return useDisplay()
+        },
+        filtredResult() {
+            const products = this.result.map(e => e)
+            
+            return products.splice(0, 3)
         }
     },
     methods: {
@@ -60,14 +71,33 @@ export default {
                 this.$refs['search'].focus();
 
             }, 100)
-
-            setTimeout(() => {
-                this.isLoading = false
-            }, 3000)
         },
         closeSearchBar() {
             this.isActive = false
             this.isLoading = true
+            this.searchHint = ''
+        },
+        search() {
+            clearTimeout(this.searchRequest)
+            this.isLoading = true
+
+            if (this.searchHint != '' ) {
+
+                
+                this.searchRequest = setTimeout(() => {
+                    axios.get(this.$store.getters.host + '/search?q=' + this.searchHint)
+                    .then(res => {
+                    if (res.status == 200 && res.data.status == "success") {
+                        console.log(res);
+                        
+                        this.result  = res.data.products
+                    } else {
+                        this.result = []
+                    }
+                    this.isLoading = false
+                })
+            }, 500)
+        } 
         }
     }
 }

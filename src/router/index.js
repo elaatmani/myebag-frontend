@@ -6,6 +6,7 @@ import SignupView from '@/views/SignupView.vue'
 import TestingApi from '@/views/TestingApi.vue'
 import ProductView from '@/views/ProductView.vue'
 import ProfileView from '@/views/ProfileView.vue'
+import DashboardView from '@/views/DashboardView.vue'
 import LoadingLogo from '@/components/app/LoadingLogo.vue'
 
 const routes = [
@@ -43,8 +44,12 @@ const routes = [
     path: '/load',
     name: 'load',
     component: LoadingLogo
-  }
-  ,
+  },
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: DashboardView
+  },
   {
     path: '/product/:id',
     name: 'product',

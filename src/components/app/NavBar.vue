@@ -41,7 +41,7 @@
     </div>
 
     <!-- Drop Down Menu -->
-    <DropdownMenu :isActive="isDropdownActive" />
+    <DropdownMenu :links="links" :isActive="isDropdownActive" />
 
 </template>
 
