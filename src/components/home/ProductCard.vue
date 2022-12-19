@@ -8,7 +8,7 @@
                     40%
                 </div>
                 <div class="w-100 h-100 overflow-hidden">
-                    <img :src="product.image" class="" :alt="product.name" />
+                    <img :src="host + image" class="" :alt="product.name" />
                 </div>
             </div>
             <div class="card-content-desktop position-relative pa-3 pt-5">
@@ -49,7 +49,7 @@
     <div v-if="!display.mdAndUp.value">
         <div class="card-mobile rounded-lg border-grey overflow-hidden d-flex">
             <div class="card-image-mobile ">
-                    <img :src="product.image" class="" :alt="product.name" />
+                    <img :src="host + image" class="" :alt="product.name" />
                 </div>
             <div class="card-content-mobile d-flex flex-column pa-3">
                 <div class="w-100 position-relative">
@@ -85,12 +85,16 @@ export default {
     props: ['product'],
     data() {
         return {
-            rating: 0
+            rating: 0,
+            image: ''
         }
     },
     computed: {
         display() {
             return useDisplay();
+        },
+        host() {
+            return this.$store.state.host
         }
     },
     methods: {
@@ -100,7 +104,8 @@ export default {
         }
     },
     created() {
-        this.rating = this.product.rating
+        this.rating = this.product.rating || 0
+        this.image = this.product.images['1']
     }
 }
 </script>

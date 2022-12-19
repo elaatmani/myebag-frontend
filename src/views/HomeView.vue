@@ -5,9 +5,10 @@
   <div v-if="!isLoading" class="pt-main  home pb-16">
         <HeroSection />
         <OurServices />
-        <ProductsContainer :products="shoes" title="Shoes" />
+        <!-- <ProductsContainer :products="shoes" title="Shoes" />
         <ProductsContainer :products="hoodies" title="Hoodies" />
-        <ProductsContainer :products="watches" title="Watches" />
+        <ProductsContainer :products="watches" title="Watches" /> -->
+        <ProductsContainer v-for="key in productKeys" :key="key" :products="products[key]" :title="key" />
         <NewsLetter />
       
   </div>
@@ -20,6 +21,7 @@ import OurServices from '@/components/home/OurServices.vue';
 import ProductsContainer from '@/components/home/ProductsContainer.vue';
 import NewsLetter from '@/components/home/NewsLetter.vue';
 import LoadingLogo from '@/components/app/LoadingLogo.vue';
+import axios from 'axios';
 
 export default {
   name: 'HomeView',
@@ -50,11 +52,26 @@ export default {
           { id: 2, name: "Pink Panther Diamond ring", price: "159.99", rating: 3, image: "images/products/hoodies/2/1.webp" },
           { id: 3, name: "Apple Watch 3", price: "169.99", rating: 5, image: "images/products/hoodies/3/1.webp" },
           { id: 4, name: "Nike Air Jordan 4", price: "179.99", rating: 1, image: "images/products/hoodies/4/1.webp" }
-      ]
+      ],
+      products: []
+    }
+  },
+  computed: {
+    productKeys() {
+      return Object.keys(this.products)
     }
   },
   mounted() {
-    setTimeout(() => this.isLoading = false, 1000)
+    axios.get(this.$store.state.host + '/products/featured').then(
+      res => {
+        console.log(res.data);
+        this.products = res.data.products
+    this.isLoading = false
+      }
+    )
+    // setTimeout(() => 
+    // this.isLoading = false
+    // , 1000)
   }
 };
 </script>

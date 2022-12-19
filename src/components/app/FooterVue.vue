@@ -7,7 +7,7 @@
                         <div class="pr-md-10">
                             <div class="logo">
                                 <div class="header-logo py-2">
-                                    <img src="favicon.svg" alt="myebag logo">
+                                    <img :src="localUrl + '/favicon.svg'" alt="myebag logo">
                                     <span class="header-logo-text text-grey-darken-4">My&NonBreakingSpace;Ebag</span>
                                 </div>
                             </div>
@@ -27,7 +27,7 @@
                     </v-col>
                     <v-col cols="12" md="4">
                         <div class="py-10">
-                            <img class="w-75" src="/images/payment.png" alt="payment" />
+                            <img class="w-75" :src="localUrl + '/images/payment.png'" alt="payment" />
                         </div>
                     </v-col>
                 </v-row>
@@ -45,6 +45,11 @@ export default {
                 {name: 'Hoodies', path: '/category/hoodies'},
                 {name: 'Watches', path: '/category/watches'}
             ]
+        }
+    },
+    computed: {
+        localUrl() {
+            return this.$store.state.localUrl
         }
     }
 }

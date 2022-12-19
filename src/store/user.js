@@ -16,7 +16,6 @@ const user = {
         // },
         isAdmin: false
     },
-
     getters: {
         isLogged: state => state.isLogged,
         user: state =>  state.user,

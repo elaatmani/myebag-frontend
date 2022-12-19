@@ -46,20 +46,21 @@ export default {
 
             formdata.append('product', JSON.stringify(product))
 
-            // const headers = {
-            //     'Content-Type': 'multipart/form-data'
-            // }
+            const headers = {
+                'Content-Type': 'multipart/form-data'
+            }
 
-            // console.log(files.files);
-            // axios.post('http://api.myebag.shop', formdata, {headers})
-            axios.get('http://localhost:8000/product?id=' + this.id)
-            .then(res => {
-                    console.log(res.data);
-                    let product = res.data.product
-                    for (let key of Object.keys(product.images)) {
-                        this.showImage('http://localhost:8000' + product.images[key])
-                    }
-            })
+            console.log(files.files);
+            axios.post('http://api.myebag.shop', formdata, {headers})
+
+            // axios.get('http://localhost:8000/product?id=' + this.id)
+            // .then(res => {
+            //         console.log(res.data);
+            //         let product = res.data.product
+            //         for (let key of Object.keys(product.images)) {
+            //             this.showImage('http://localhost:8000' + product.images[key])
+            //         }
+            // })
         },
         showImage(path) {
             setTimeout(() => {

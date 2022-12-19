@@ -5,7 +5,7 @@
 
             <!-- Navogation Logo -->
             <div class="header-logo py-2">
-                <img src="favicon.svg" alt="myebag logo">
+                <img :src=" localUrl + '/favicon.svg'" alt="myebag logo">
                 <span class="header-logo-text text-grey-darken-4">My&NonBreakingSpace;Ebag</span>
             </div>
 
@@ -68,12 +68,15 @@ export default {
         links() {
             let main = [
                 { name: 'Home', path: '/' },
-                { name: 'Women', path: '/category' },
-                { name: 'Men', path: '/about' },
-                { name: 'Children', path: '/contact' },
+                { name: 'Shoes', path: '/category/shoes' },
+                { name: 'Hoodies', path: '/category/hoodies' },
+                { name: 'Watches', path: '/category/watches' },
             ]
 
             return main
+        },
+        localUrl() {
+            return this.$store.state.localUrl
         }
     },
     methods: {

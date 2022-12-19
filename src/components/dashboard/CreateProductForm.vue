@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="create-btn">
-            <v-btn class="mr-2 text-capitalize"  color="primary-purple" variant="flat"><v-icon size="large" class="mr-1">mdi-plus</v-icon> Create</v-btn>
+            <v-btn @click="sendImages" class="mr-2 text-capitalize"  color="primary-purple" variant="flat"><v-icon size="large" class="mr-1">mdi-plus</v-icon> Create</v-btn>
         </div>
         <h2 class="text-h6 text-grey-darken-3">Create Product</h2>
         <div class="mt-5">
@@ -13,13 +13,14 @@
                 </v-col>
                 <v-col md="6">
                     <v-text-field label="Price" variant="outlined" density="compact" color="primary-purple" model-value="10.00" prefix="$"></v-text-field>
-                    <v-file-input :chips="true" :counter="true" accept="image/png, image/jpeg, image/bmp, image/webp" :multiple="true" :show-size="true" hint="Max 3 files" :persistent-hint="true" label="Click to upload images" variant="outlined" prepend-icon="" density="compact"  prepend-inner-icon="mdi-camera"></v-file-input>
+                    <v-file-input id="product-images" :chips="true" :counter="true" accept="image/png, image/jpeg, image/bmp, image/webp" :multiple="true" :show-size="true" hint="Max 3 files" :persistent-hint="true" label="Click to upload images" variant="outlined" prepend-icon="" density="compact"  prepend-inner-icon="mdi-camera"></v-file-input>
                 </v-col>
             </v-row>
         </div>
     </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
     data() {
         return {
@@ -37,6 +38,39 @@ export default {
     computed: {
         categories() {
             return this.categoriesList.map(item => item.name)
+        },
+        host() {
+            return this.$store.state.host
+        }
+    },
+    methods: {
+        sendImages() {
+            let images = document.getElementById('product-images').files
+            let formdata = new FormData()
+
+            for (let image of images) {
+                formdata.append('files[]', image)
+                console.log(image);
+            }
+            let product = {
+                name: 'Test',
+                desc: 'Test',
+                price: 0,
+                category_id: 1
+            }
+
+            formdata.append('product', JSON.stringify(product))
+            
+
+            const headers = {
+                'Content-Type': 'multipart/form-data'
+            }
+
+            axios.post(this.host + '/product', formdata, { headers }).then(res => {
+                console.log(res.data)
+            })
+
+            // console.log(images.files);
         }
     }
 }

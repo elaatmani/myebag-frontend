@@ -8,7 +8,7 @@
             v-if="isLogged" 
             v-bind="props" :class="{'bg-grey-lighten-4': isHovering || isOpen}"
                 class="ml-3 mr-1 d-flex align-center position-relative rounded-circle  pa-1 avatar-container">
-                <v-avatar class="user-avatar" size="33" :image="'images/avatar/' + user['user_avatar'] + '.webp'"></v-avatar>
+                <v-avatar class="user-avatar" size="33" :image="localUrl + '/images/avatar/' + user['user_avatar'] + '.webp'"></v-avatar>
                 <!-- <v-btn  :icon="iconStatus ? 'mdi-chevron-up' : 'mdi-chevron-down'" density="compact" :ripple="false" variant="text" class="ml-1 no-hover hidden-sm-and-down" ></v-btn> -->
             </div>
         </v-hover>
@@ -97,6 +97,9 @@ export default {
         },
         display() {
             return useDisplay();
+        },
+        localUrl() {
+            return this.$store.state.localUrl
         },
         isLogged() {
             return this.$store.state.user.isLogged
