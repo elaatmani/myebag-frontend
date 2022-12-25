@@ -5,10 +5,7 @@
   <div v-if="!isLoading" class="pt-main  home pb-16">
         <HeroSection />
         <OurServices />
-        <!-- <ProductsContainer :products="shoes" title="Shoes" />
-        <ProductsContainer :products="hoodies" title="Hoodies" />
-        <ProductsContainer :products="watches" title="Watches" /> -->
-        <ProductsContainer v-for="key in productKeys" :key="key" :products="products[key]" :title="key" />
+        <ProductsContainer v-for="key in productKeys" :key="key" :products="products[key]" :title="key" :to="'/category/' + key" />
         <NewsLetter />
       
   </div>
@@ -66,12 +63,9 @@ export default {
       res => {
         console.log(res.data);
         this.products = res.data.products
-    this.isLoading = false
+        this.isLoading = false
       }
     )
-    // setTimeout(() => 
-    // this.isLoading = false
-    // , 1000)
   }
 };
 </script>

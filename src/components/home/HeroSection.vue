@@ -10,7 +10,7 @@
                                 <div class="text-md-h3 text-h4 mt-n2">ZIP HOODIE</div>
                                 <p class="text-md-body-2 text-caption mt-md-5 mt-2" :style="paragraphWidth">Checkout our new collection of hoodies !</p>
                                 <div class="mt-10">
-                                    <v-btn variant="outlined" color="white" class="w-auto text-capitalize">Discover Now</v-btn>
+                                    <v-btn @click="$router.push('/category/hoodies')" variant="outlined" color="white" class="w-auto text-capitalize">Discover Now</v-btn>
                                 </div>
                             </div>
                         </div>
@@ -19,7 +19,7 @@
                         <v-row class="h-100 " :class="{'gap-1':  display.smAndUp.value}"  :no-gutters="display.smAndUp.value">
                             <v-col cols="6" sm="12" class="h-auto " >
                                 <v-hover v-slot="{isHovering, props}">
-                                    <div v-bind="props" class="h-100 w-100 overflow-hidden rounded-lg bg-right-bottom bg-yellow-cs seconde-slider" style="background-image: url('images/assets/slider-img-2.webp')">
+                                    <div @click="$router.push('/category/shoes')" v-bind="props" class="h-100 w-100 overflow-hidden rounded-lg bg-right-bottom bg-yellow-cs seconde-slider" style="background-image: url('images/assets/slider-img-2.webp')">
                                         <div :class="{active: isHovering}" class="content w-100 h-100 text-white pa-3">
                                             <p class="text-caption text-md-subtitle-1">
                                                 Shoes
@@ -34,7 +34,7 @@
                             <v-col cols="6" sm="12" class="h-auto">
                                 
                                 <v-hover v-slot="{isHovering, props}"> 
-                                    <div v-bind="props" class="h-100 w-100 overflow-hidden rounded-lg bg-right-bottom seconde-slider" style="background-color: #a68afc; background-image: url('images/assets/slider-img-6.webp')">
+                                    <div @click="$router.push('/category/watches')" v-bind="props" class="h-100 w-100 overflow-hidden rounded-lg bg-right-bottom seconde-slider" style="background-color: #a68afc; background-image: url('images/assets/slider-img-6.webp')">
                                         <div :class="{active: isHovering}" class="content w-100 h-100 text-white pa-3">
                                             <p class="text-caption text-md-subtitle-1">
                                                 Watches

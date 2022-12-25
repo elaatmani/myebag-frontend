@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 // import axios from 'axios';
 import FooterVue from './components/app/FooterVue.vue';
 import NavBar from './components/app/NavBar.vue'
@@ -32,10 +33,20 @@ export default {
         this.$store.dispatch('updateLogin', true)
         console.log(user);
       }
+    },
+    loadAllProducts() {
+      axios.get(this.$store.state.host + '/products').then(
+        res => {
+          if (res.data.status == "success") {
+            this.$store.dispatch('setProducts', res.data.products)
+          }
+        }
+      )
     }
   },
   mounted() {
     this.checkUserStatus()
+    // this.loadAllProducts()
   }
 }
 </script>

@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <LoadingDash v-if="isLoading" />
+    <div v-if="!isLoading">
         <div class="create-btn">
             <v-btn class="mr-2 text-capitalize" @click="changeComponent('create-product')"  color="primary-purple" variant="flat"><v-icon size="large" class="mr-1">mdi-plus</v-icon> Create</v-btn>
         </div>
@@ -20,22 +21,79 @@
                     <v-text-field class="w-100" variant="outlined" :hide-details="true" density="compact" prepend-inner-icon="mdi-magnify" color="primary-purple" label="Search"></v-text-field>
                 </div>
             </div>
-            <div class="products-container rounded-bs-lg rounded-be-lg bg-pink-lighten-5">
-                <h2>
-                    {{ activeTab.name }}
-                </h2>
+            <div class="products-container rounded-bs-lg rounded-be-lg">
+                    <v-table density="comfortable" v-if="allProducts.length > 0" height="330" fixed-header>
+                        <thead>
+                            <tr>
+                                <th class="text-left" width="20">
+                                Id
+                                </th>
+                                <th class="text-left" width="40">
+                                Image
+                                </th>
+                                <th class="text-left">
+                                Name
+                                </th>
+                                <th class="text-left">
+                                Price
+                                </th>
+                                <th>
+                                    Category
+                                </th>
+                                <th class="text-left">
+                                Created At
+                                </th>
+                                <th class="text-left">
+                                Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="font-weight-regular">
+                            <tr v-for="product in products" :key="product.id">
+                                <td>
+                                    {{product.id}}
+                                </td>
+                                <td>
+                                    <v-avatar class="rounded-0" size="30" v-if="product.images">
+                                        <v-img :cover="true" :src="$store.state.host + product.images[1]"></v-img>
+                                    </v-avatar>
+                                </td>
+                                <td>
+                                    {{product.name}}
+                                </td>
+                                <td>
+                                    ${{product.price}}
+                                </td>
+                                <td>
+                                    {{product.category.name}}
+                                </td>
+                                <td>
+                                    {{product.created_at}}
+                                </td>
+                                <td>
+                                    <v-btn size="x-small" color="blue" variant="text" icon="mdi-eye"></v-btn>
+                                    <v-btn size="x-small" color="green" variant="text" icon="mdi-pencil"></v-btn>
+                                    <v-btn size="x-small" color="red" variant="text" icon="mdi-cancel"></v-btn>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </v-table>
             </div>
         </div>
     </div>
 </template>
-
 <script>
+import axios from 'axios'
+import LoadingDash from '@/components/dashboard/LoadingDash'
 export default {
+    emits: ['showMessage', 'changeComponent'],
+    components: {LoadingDash},
     data() {
         return {
+            isLoading: true,
             activeTab: {id: 1, name: 'All products', category: 'all'},
             tabs: [
-                {id: 1, name: 'All products', categiry: 'all'},
+                {id: 1, name: 'All products', category: 'all'},
                 {id: 2, name: 'Shoes', category: 'shoes'},
                 {id: 3, name: 'Hoodies', category: 'hoodies'},
                 {id: 4, name: 'Watches', category: 'watches'},
@@ -43,10 +101,31 @@ export default {
             allProducts: []
         }
     },
+    computed: {
+        products() {
+            if(this.activeTab.category == 'all') {
+                return this.allProducts
+            } else {
+                return this.allProducts.filter(p => p.category.name == this.activeTab.category)
+            }
+        }
+    },
     methods: {
         changeComponent(value) {
             this.$emit('changeComponent', value)
         }
+    },
+    mounted() {
+        axios.get(this.$store.state.host + '/products').then(res => {
+            setTimeout(() => {
+
+                this.allProducts = res.data.products
+                this.isLoading = false
+            }, 100)
+        }).catch(err => {
+            console.log(err);
+            this.isLoading = false
+        })
     }
 }
 </script>

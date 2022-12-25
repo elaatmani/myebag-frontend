@@ -4,7 +4,7 @@
     <div v-if="display.mdAndUp.value">
         <div class="card-desktop rounded-lg bg-white elevation-0-5  border-grey overflow-hidden">
             <div class="card-image-desktop position-relative">
-                <div class="discount px-3 py-1 text-body-2 bg-green-accent-3 border-grey rounded-lg">
+                <div v-if="product.discount" class="discount px-3 py-1 text-body-2 bg-green-accent-3 border-grey rounded-lg">
                     40%
                 </div>
                 <div class="w-100 h-100 overflow-hidden">
