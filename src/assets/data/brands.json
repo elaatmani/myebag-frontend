@@ -1,0 +1,38 @@
+[
+    {
+      "id": 1,
+      "name": "gucci",
+      "rating": 5,
+      "src": "@/images/category/shoes/addidas3.png"
+    },
+    {
+      "id": 2,
+      "name": "addidas",
+      "rating": 4,
+      "src": "@/images/category/shoes/addidas1.png"
+    },
+    {
+      "id": 3,
+      "name": "channel",
+      "rating": 3,
+      "src": "@/images/category/shoes/addidas2.png"
+    },
+    {
+      "id": 4,
+      "name": "jordan",
+      "rating": 2,
+      "src": "@/images/category/shoes/addidas3.png"
+    },
+    {
+      "id": 5,
+      "name": "nike",
+      "rating": 4,
+      "src": "@/images/category/shoes/addidas1.png"
+    },
+    {
+      "id": 6,
+      "name": "shit",
+      "rating": 1,
+      "src": "@/images/category/shoes/addidas2.png"
+    }
+  ]

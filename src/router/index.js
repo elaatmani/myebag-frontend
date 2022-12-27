@@ -4,6 +4,7 @@ import AboutView from '../views/AboutView.vue'
 import LoginView from '@/views/LoginView.vue'
 import SignupView from '@/views/SignupView.vue'
 import TestingApi from '@/views/TestingApi.vue'
+import CategoryView from '@/views/CategoryView.vue'
 import LoadingLogo from '@/components/app/LoadingLogo.vue'
 
 const routes = [
@@ -37,6 +38,12 @@ const routes = [
     path: '/load',
     name: 'load',
     component: LoadingLogo
+  }
+  ,
+  {
+    path: '/category/',
+    name: 'category',
+    component: CategoryView
   }
 ]
 

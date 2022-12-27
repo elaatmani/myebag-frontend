@@ -13,7 +13,7 @@
             <div class="header-links" v-if="display.mdAndUp.value">
                 <v-hover v-slot="{ isHovering, props }" v-for="link in links" :key="link.name">
                     <v-btn link :to="link.path" variant="text" v-bind="props"
-                        :color="isHovering ? 'primary-purple' : 'grey-darken-3'" class="text-capitalize no-hover">
+                        :color="isHovering ? 'primary-purple' : 'grey-darken-3'" class="text-capitalize no-hover" @click="req(link.name)">
                         {{ link.name }}</v-btn>
                 </v-hover>
             </div>
@@ -68,12 +68,15 @@ export default {
         links() {
             let main = [
                 { name: 'Home', path: '/' },
-                { name: 'Women', path: '/category' },
-                { name: 'Men', path: '/about' },
-                { name: 'Children', path: '/contact' },
+                { name: 'Shoes', path: '/category?name=shoes' },
+                { name: 'hoodies', path: '/category?name=hoodies' },
+                { name: 'watches', path: '/category?name=watches' },
             ]
 
             return main
+        },
+        host() {
+            return this.$store.getters.host
         }
     },
     methods: {
@@ -82,6 +85,12 @@ export default {
         },
         closeMenu() {
             this.isDropdownActive = false
+        }, 
+        req(name) {
+            return '?name='+name
+        },
+        goToCategory() {
+            // axios.get(this.host + req, )
         }
     }
 }
