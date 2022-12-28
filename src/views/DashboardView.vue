@@ -62,6 +62,7 @@ import DashboardMain from "@/components/dashboard/DashboardMain.vue";
 import CreateProductForm from "@/components/dashboard/CreateProductForm.vue";
 import ShowMessage from '@/components/dashboard/ShowMessage.vue';
 import LoadingDash from '@/components/dashboard/LoadingDash.vue';
+import EditProductForm from '@/components/dashboard/EditProductForm.vue';
 // import axios from 'axios';
 
 export default {
@@ -70,6 +71,7 @@ export default {
     "product": ProductDash,
     "dashboard": DashboardMain,
     "create-product": CreateProductForm,
+    "edit-product": EditProductForm,
     ShowMessage,
     'loading-dash': LoadingDash
   },

@@ -7,6 +7,7 @@ import TestingApi from '@/views/TestingApi.vue'
 import ProductView from '@/views/ProductView.vue'
 import ProfileView from '@/views/ProfileView.vue'
 import DashboardView from '@/views/DashboardView.vue'
+import CategoryView from '@/views/CategoryView.vue'
 import LoadingLogo from '@/components/app/LoadingLogo.vue'
 
 const routes = [
@@ -54,6 +55,12 @@ const routes = [
     path: '/product/:id',
     name: 'product',
     component: ProductView
+  }
+  ,
+  {
+    path: '/category/',
+    name: 'category',
+    component: CategoryView
   }
 ]
 
