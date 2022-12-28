@@ -6,7 +6,7 @@
             <div class="card-content-desktop position-relative pa-0 pt-2">
                 
                 <div class="card-image-desktop">
-                                <img :src="category.src" class="" :alt="category.name" />
+                                <img :src="host + category.src" class="" :alt="category.name" />
                             </div>
                 <div class="py-1">
                     <div>
@@ -33,7 +33,7 @@
     <div v-if="!display.mdAndUp.value">
         <div class="card-mobile rounded-lg border-grey overflow-hidden d-flex">
             <div class="card-image-mobile ">
-                    <img :src="category.src" class="" :alt="category.name" />
+                    <img :src="host + category.src" class="" :alt="category.name" />
                 </div>
             <div class="card-content-mobile d-flex flex-column pa-3">
                 <div class="w-100 position-relative">
@@ -60,6 +60,9 @@ export default {
     computed: {
         display() {
             return useDisplay();
+        },
+        host() {
+            return this.$store.state.host
         }
     },
     methods: {
@@ -70,6 +73,7 @@ export default {
     },
     created() {
         this.rating = this.category.rating
+        console.log(' this is host ' + this.host)
     }
 }
 </script>

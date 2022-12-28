@@ -16,9 +16,9 @@
   </div>
 </template>
 <script>
-import HeaderCategory from "./../components/category/HeaderCategory.vue";
+import HeaderCategory from "@/components/category/HeaderCategory.vue";
 // import ProductCard from "./../components/home/ProductCard.vue";
-import ProductsContainer from "./../components/home/ProductsContainer.vue";
+import ProductsContainer from "@/components/home/ProductsContainer.vue";
 // import CategoryCard from "@/components/category/CategoryCard.vue";
 import CategoryContainer from "@/components/category/CategoryContainer.vue";
 
@@ -39,49 +39,49 @@ export default {
           name: "Nike Air Jordan 1",
           price: "149.99",
           rating: 2,
-          image: "images/category/shoes/cap1.png",
+          images: { "1": "/images/category/shoes/cap1.png"},
         },
         {
           id: 2,
           name: "Nike Air Jordan 1",
           price: "149.99",
           rating: 4,
-          image: "images/category/shoes/cap2.png",
+          images: { "1": "/images/category/shoes/cap2.png"},
         },
         {
           id: 3,
           name: "Nike Air Jordan 1",
           price: "149.99",
           rating: 5,
-          image: "images/category/shoes/cap3.png",
+          images: { "1": "/images/category/shoes/cap3.png"},
         },
         {
           id: 4,
           name: "Nike Air Jordan 1",
           price: "149.99",
           rating: 2,
-          image: "images/category/shoes/addidas2.png",
+          images: { "1": "/images/category/shoes/addidas2.png" },
         },
         {
           id: 5,
           name: "Nike Air Jordan 1",
           price: "149.99",
           rating: 1,
-          image: "images/category/shoes/addidas3.png",
+          images: { "1": "/images/category/shoes/addidas3.png" },
         },
         {
           id: 6,
           name: "Nike Air Jordan 1",
           price: "149.99",
           rating: 5,
-          image: "images/category/shoes/addidas4.png",
+          images: { "1": "/images/category/shoes/addidas4.png" },
         },
         {
           id: 7,
           name: "Nike Air Jordan 1",
           price: "149.99",
           rating: 3,
-          image: "images/category/shoes/addidas1.png",
+          images: { "1": "/images/category/shoes/addidas1.png" },
         },
 
       ],
@@ -90,44 +90,49 @@ export default {
           id: 1,
           name: "gucci",
           rating: 5,
-          src: "logos/shoes/addidas.png",
+          src: "/images/logos/shoes/addidas.png",
         },
         {
           id: 2,
           name: "addidas",
           rating: 4,
-          src: "logos/shoes/gucci.png",
+          src: "/images/logos/shoes/gucci.png",
         },
         {
           id: 3,
           name: "channel",
           rating: 3,
-          src: "logos/shoes/nike.png",
+          src: "/images/logos/shoes/nike.png",
         },
         {
           id: 4,
           name: "jordan",
           rating: 2,
-          src: "logos/shoes/addidas.png",
+          src: "/images/logos/shoes/addidas.png",
         },
         {
           id: 5,
           name: "nike",
           rating: 4,
-          src: "logos/shoes/gucci.png",
+          src: "/images/logos/shoes/gucci.png",
         },
         {
           id: 6,
           name: "shit",
           rating: 1,
-          src: "logos/shoes/nike.png",
+          src: "/images/logos/shoes/nike.png",
         },
       ],
-      computed: {
-        
-      }
     };
   },
+  computed: {
+    host() {
+      return this.$store.state.host
+    }
+  },
+  mounted() {
+    console.log('we are in')
+  }
   
 };
 </script>
