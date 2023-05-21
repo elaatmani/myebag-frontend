@@ -19,7 +19,7 @@ body * {
 }
 
 .pt-main {
-    padding-top: 80px !important;
+    padding-top: 40px !important;
 }
 
 ::-webkit-scrollbar {
@@ -28,7 +28,7 @@ body * {
 
 ::-webkit-scrollbar-thumb {
     width: 15px;
-    background: #6354a4;
+    background: #fc9b9b;
 }
 
 ::-webkit-scrollbar-track {

@@ -1,16 +1,16 @@
 <template>
   <LoadingLogo v-if="isLoading" />
 
-  <div v-if="!isLoading" class="pt-main home pb-16">
-    <HomeVue></HomeVue>
+  <div v-if="!isLoading" class="pt-main skills pb-16">
+    <SkillVue></SkillVue>
   </div>
 </template>
 
 <script>
-import HomeVue from "@/components/HomeVue.vue";
+import SkillVue from "@/components/SkillsVue.vue";
 export default {
-  name: "HomeView",
-  components: { HomeVue },
+  name: "SkillView",
+  components: { SkillVue },
   data() {
     return {};
   },
@@ -19,12 +19,12 @@ export default {
 </script>
 
 <style scoped>
-.home {
+.skills {
   /* min-height: 100vh; */
   position: relative;
 }
 .skills {
-  border-bottom: 2px solid #fc9b9b;
+  /*border-bottom: 2px solid #fc9b9b;*/
   width: 100%;
 }
 

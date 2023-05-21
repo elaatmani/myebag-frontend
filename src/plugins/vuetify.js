@@ -7,8 +7,7 @@ import { createVuetify } from 'vuetify'
 
 const myTheme = {
   colors: {
-    'primary-cyan': '#5dc5c3', 
-    'primary-purple': '#6354a4'
+    'primary-pink': '#fc9b9b'
   }
 }
 

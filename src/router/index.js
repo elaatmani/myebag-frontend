@@ -1,55 +1,26 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import AboutView from '../views/AboutView.vue'
-import LoginView from '@/views/LoginView.vue'
-import SignupView from '@/views/SignupView.vue'
-import TestingApi from '@/views/TestingApi.vue'
-import ProductView from '@/views/ProductView.vue'
-import ProfileView from '@/views/ProfileView.vue'
-import LoadingLogo from '@/components/app/LoadingLogo.vue'
-
+import SkillsView from '../views/SkillsView.vue'
+import ContactView from '../views/ContactView.vue'
 const routes = [
   {
     path: '/',
     name: 'home',
     component: HomeView
   },
+
   {
-    path: '/about',
-    name: 'about',
-    component: AboutView
+    path: '/skills',
+    name: 'skills',
+    component: SkillsView
   },
+
   {
-    path: '/login',
-    name: 'login',
-    component: LoginView
+    path: '/contact',
+    name: 'contact',
+    component: ContactView
   },
-  {
-    path: '/signup',
-    name: 'signup',
-    component: SignupView
-  },
-  {
-    path: '/profile',
-    name: 'profile',
-    component: ProfileView
-  },
-  {
-    path: '/api',
-    name: 'api',
-    component: TestingApi
-  },
-  {
-    path: '/load',
-    name: 'load',
-    component: LoadingLogo
-  }
-  ,
-  {
-    path: '/product/:id',
-    name: 'product',
-    component: ProductView
-  }
+
 ]
 
 const router = createRouter({
